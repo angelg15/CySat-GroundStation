@@ -8,7 +8,7 @@ from kivy.uix.dropdown import DropDown
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.utils import get_color_from_hex
-from kivy.uix.filechooser 
+from kivy.uix.filechooser
 
 
 Builder.load_string("""
