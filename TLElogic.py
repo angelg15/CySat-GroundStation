@@ -1,5 +1,5 @@
 """stuff will go here"""
-
+import ephem
 
 def readingTLE(file):
     TLEfile = open(file,'r')

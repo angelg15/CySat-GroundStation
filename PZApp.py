@@ -10,6 +10,7 @@ from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.utils import get_color_from_hex
 from kivy.uix.filechooser import FileChooserIconLayout
+from TLElogic import readingTLE
 
 Builder.load_string("""
 <HScr>:
@@ -72,7 +73,7 @@ Builder.load_string("""
                 Rectangle:
                     pos: self.pos
                     size: self.size
-            on_selection: root.select(*args)
+            on_selection: root.reading(self.selection)
 
 	"""	)
 
@@ -92,7 +93,8 @@ class Options(Screen):
 	pass
 
 class FileScreen(Screen):
-    pass
+    def reading(self, filename):
+        readingTLE(filename[0])
 
 
 sm = ScreenManager()
