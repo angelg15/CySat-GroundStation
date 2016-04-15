@@ -1,3 +1,31 @@
 \\\\\\\\\\\\\|||||||line1||||||||||||////////////////
 ||||||||||||||||||||line2|||||||||||||||||||
 ||||||||||||||||||||line3||||||||||||||||||||||||||||
+
+controllerSerial = serial.Serial(COM3,9600,serial.EIGHTBITS,serial.PARITY_NONE,serial.STOPBITS_ONE)
+#for azel strings that will be sent to controller
+azelList = []
+#storing tle info
+def controllerComm():
+    iss = ephem.readtle(line1, line2, line3)
+    obs = ephem.Observer()
+  	for p in range(3):
+			tr, azr, tt, altt, ts, azs = obs.next_pass(iss)
+			while tr < ts:
+				obs.date = tr
+				iss.compute(obs)
+				az  = math.degrees(iss.az)
+				alt = math.degrees(iss.alt)
+				azel = str(az) + str(alt)
+				azelList.append(azel)
+				tr = ephem.Date(tr + 1.0 * ephem.second)
+
+#1 sec loop
+for a in azel:
+    controllerSerial.write(a)
+    time.sleep(1)
+
+
+print tr
+			print ts
+			print str(math.degrees(altt)) + " |  " + str(tt)

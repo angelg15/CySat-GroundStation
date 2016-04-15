@@ -54,12 +54,14 @@ Builder.load_string("""
     FloatLayout:
         Button:
             text: "Back"
+            color: [0,1,0,1]
             pos_hint: {'right':0.2, 'top':1.0}
             size_hint: 0.2, 0.16
             on_press:
                 root.manager.current = 'home_scr'
         Button:
             text: "Load TLE"
+            color: [0,1,0,1]
             pos_hint: {'right':0.6, 'top':0.55}
             size_hint: 0.2, 0.16
             on_press:
@@ -73,7 +75,9 @@ Builder.load_string("""
                 Rectangle:
                     pos: self.pos
                     size: self.size
-            on_selection: root.reading(self.selection)
+            on_selection:
+                root.manager.current = 'tle_scr'
+                root.reading(self.selection[0])
 
 	"""	)
 
@@ -94,7 +98,7 @@ class Options(Screen):
 
 class FileScreen(Screen):
     def reading(self, filename):
-        readingTLE(filename[0])
+        readingTLE(filename)
 
 
 sm = ScreenManager()
