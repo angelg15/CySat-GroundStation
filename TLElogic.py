@@ -28,17 +28,9 @@ def readingTLE(file):
 			while tr < ts:
 				obs.date = tr
 				iss.compute(obs)
-				print "%s | %4.1f %5.1f | %4.1f %+6.1f | %5.1f" % \
-					(tr,
-					 math.degrees(iss.alt),
-					 math.degrees(iss.az),
-					 math.degrees(iss.sublat),
-					 math.degrees(iss.sublong),
-					 iss.elevation/1000.)
-				tr = ephem.Date(tr + 20.0 * ephem.second)
+				tr = ephem.Date(tr + 1.0 * ephem.second)
 				c = Command.Command(math.degrees(iss.az),math.degrees(iss.alt))
 				azelQ.put_nowait(c)
-				#print azel
 			print
 			obs.date = tr + ephem.minute
 	print "--------------"

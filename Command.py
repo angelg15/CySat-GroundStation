@@ -4,4 +4,4 @@ class Command:
         self.az = az
         self.el = el
     def __repr__(self):
-        return "w " + "%.2f" % self.az + " " +"%.2f" % self.el
+        return "w " + "%.03d" % self.az + " " +"%.03d" % self.el

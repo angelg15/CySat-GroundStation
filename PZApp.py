@@ -7,6 +7,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen, SwapTransition
 from kivy.uix.label import Label
 from kivy.uix.dropdown import DropDown
 from kivy.uix.button import Button
+
 from kivy.uix.textinput import TextInput
 from kivy.utils import get_color_from_hex
 from kivy.uix.filechooser import FileChooserIconLayout
@@ -42,7 +43,7 @@ Builder.load_string("""
 			pos_hint: {'right': 0.3, 'top': 0.33}
 			size_hint: 0.2, 0.16
 			on_press:
-				root.manager.current = 'comms_scr'
+				root.manager.current = 'cs'
 		Button:
 			text: "Options"
 			color: [0,1,0,1]
@@ -50,6 +51,16 @@ Builder.load_string("""
 			size_hint: 0.2, 0.16
 			on_press:
 				root.manager.current = 'opt_scr'
+<Comm>
+    FloatLayout:
+        Button:
+            text: "Back"
+            color: [0,1,0,1]
+            pos_hint: {'right':0.2, 'top':1.0}
+            size_hint: 0.2, 0.16
+            on_press:
+                root.manager.current = 'home_scr'
+
 <TLE_Loader>
     FloatLayout:
         Button:
@@ -79,7 +90,7 @@ Builder.load_string("""
                 root.manager.current = 'tle_scr'
                 root.reading(self.selection[0])
 
-	"""	)
+	""")
 
 class HScr(Screen):
 	pass
@@ -92,7 +103,8 @@ class TLE_Loader(Screen):
 
 class Communicator(Screen):
 	pass
-
+class Comm(Screen):
+    pass
 class Options(Screen):
 	pass
 
@@ -105,6 +117,7 @@ sm = ScreenManager()
 sm.add_widget(HScr(name = 'home_scr'))
 sm.add_widget(Display(name = 'display_scr'))
 sm.add_widget(TLE_Loader(name = 'tle_scr'))
+sm.add_widget(Comm(name = 'cs'))
 sm.add_widget(Communicator(name = 'comms_scr'))
 sm.add_widget(Options(name = 'opt_scr'))
 sm.add_widget(FileScreen(name = 'fs'))
