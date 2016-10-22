@@ -9,6 +9,7 @@ import time
 choice = []
 
 def readingTLE(file):
+
     TLEfile = open(file,'r')
     # for ever TLE
     for line in TLEfile:
@@ -23,21 +24,30 @@ def readingTLE(file):
     	obs.long = '-93.65278'
 
     	for p in range(3):
-			tr, azr, tt, altt, ts, azs = obs.next_pass(iss)
 
-			times = Command.PassTimes(tr, ts)
-			commands = Queue.Queue(0)
+            try:
+                tr, azr, tt, altt, ts, azs = obs.next_pass(iss)
+            except ValueError:
+                print "llllll"
+            finally:
+                print "Can not see it"
+                sys.exit(1)
 
-			while tr < ts:
+
+            times = Command.PassTimes(tr, ts)
+            commands = Queue.Queue(0)
+
+
+            while tr < ts:
 				obs.date = tr
 				iss.compute(obs)
 				c = Command.Command(math.degrees(iss.az), math.degrees(iss.alt))
 				commands.put_nowait(c)
 				#print commands.get_nowait()
 				tr = ephem.Date(tr + 1.0 * ephem.second)
-			choices = Command.Choice(commands, times, altt)
-			choice.append(choices)
-			obs.date = tr + ephem.minute
+            choices = Command.Choice(commands, times, altt)
+            choice.append(choices)
+            obs.date = tr + ephem.minute
 	#moveRotor()
 	print "--------------"
 
@@ -58,5 +68,4 @@ def moveRotor():
         time.sleep(1)
 
 
-
-
+readingTLE('weather.txt')
