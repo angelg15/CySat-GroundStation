@@ -1,0 +1,1 @@
+In order to get the gui part working just get openmct and follow the instructions in this link https://nasa.github.io/openmct/docs/tutorials/#to-do-list
